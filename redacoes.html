@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Redações · Minha Trajetória</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos adicionais para os botões de ordenação */
+        .sort-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .sort-btn {
+            background: var(--white);
+            color: var(--dark-green);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .sort-btn:hover {
+            border-color: var(--green);
+            transform: translateY(-2px);
+        }
+
+        .sort-btn.active {
+            background: var(--green);
+            color: #ffffff;
+            border-color: var(--green);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <nav class="navbar" aria-label="Navegação principal">
+            <a href="index.html#inicio" class="logo">Minha trajetória</a>
+
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                type="button"
+                aria-label="Abrir menu"
+                aria-expanded="false"
+                aria-controls="navLinks"
+            >
+                ☰
+            </button>
+
+            <button
+                class="theme-toggle"
+                id="themeToggle"
+                type="button"
+                aria-label="Alternar tema"
+            >
+                🌙
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#inicio">Início</a></li>
+                <li><a href="index.html#trajetoria">Trajetória</a></li>
+                <li><a href="index.html#galeria">Memórias</a></li>
+                <li><a href="redacoes.html" aria-current="page">Redações</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="essay-page">
+
+        <section class="intro">
+            <p class="subtitle">Meu desenvolvimento</p>
+            <h1>Portfólio de redações</h1>
+            <p>Uma coleção de redações de Saulo Murilo.</p>
+        </section>
+
+        <div class="page-actions">
+            <a href="index.html" class="btn">← Voltar ao início</a>
+        </div>
+
+        <div class="search-container">
+            <label for="essaySearch" class="sr-only">Pesquisar redação</label>
+            <input
+                type="search"
+                id="essaySearch"
+                placeholder="Pesquisar redação pelo título..."
+                autocomplete="off"
+            >
+        </div>
+
+        <!-- Botões de Ordenação -->
+        <div class="sort-container">
+            <button type="button" class="sort-btn active" data-sort="default">Ordem Padrão</button>
+            <button type="button" class="sort-btn" data-sort="alpha">Alfabética (A-Z)</button>
+            <button type="button" class="sort-btn" data-sort="score-asc">Menor Nota</button>
+            <button type="button" class="sort-btn" data-sort="score-desc">Maior Nota</button>
+        </div>
+
+        <section class="essay-grid" id="essayGrid" aria-live="polite">
+            <p class="loading-message">Carregando redações...</p>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>Minha trajetória escolar · Terceirão</p>
+        <p>Uma história feita de aprendizados e memórias.</p>
+    </footer>
+
+    <div
+        class="modal"
+        id="essayModal"
+        role="dialog"
+        aria-modal="true"
+        aria-hidden="true"
+        aria-labelledby="modalTitle"
+    >
+        <div class="modal-content">
+
+            <button
+                class="modal-close"
+                id="modalClose"
+                type="button"
+                aria-label="Fechar redação"
+            >
+                ×
+            </button>
+
+            <div class="modal-meta">
+                <span id="modalNumber" class="modal-number"></span>
+                <span id="modalScore" class="modal-score"></span>
+            </div>
+
+            <h2 id="modalTitle"></h2>
+
+            <div class="modal-body">
+                <p id="modalText"></p>
+            </div>
+
+        </div>
+    </div>
+
+    <button
+        id="backToTop"
+        class="back-to-top"
+        type="button"
+        aria-label="Voltar ao topo"
+    >
+        ↑
+    </button>
+
+    <script src="script.js" defer></script>
+
+    <script>
+        const essays = [
+            {
+                theme: "O respeito às diferenças para a superação dos conflitos sociais na sociedade contemporânea",
+                score: "Nota: 680.0",
+                numericScore: 680.0,
+                text: `Nos dias atuais, vivemos em uma sociedade no qual pessoas sofrem com preconceito, intolerância, desigualdade, desrespeito, isso vem junto com a perda de ética das pessoas e isso é um grande ponto negativo para uma convivência saudável. Por isso, temos que respeitarmos a diferença e não criticá-los, usar essas críticas para uma superação maior que elas.
+
+Com isso, a falta de ética dentro da nossa sociedade pode aumentar os conflitos. Os preconceitos também podem levar a uma exclusão social, violência e danos físicos e mentais para as pessoas que sofrem com isso. Um dos pontos em que ocorrem constantemente esses tipos de conflitos são as redes sociais.
+
+A ética e o respeito é fundamental para mudarmos e superarmos esses conflitos, mostrando para a sociedade a diferença radical que trás, para que assim possamos viver em igualdade e sem problemas. Uma iniciativa que pode ser tomada para aumentar o respeito na sociedade, seja as escolas fazendo trabalhos escolares abordando o tema, campanhas sociais e até mesmo publicando postagens para as redes sociais, pois assim alcançamos o nosso objetivo com mais eficiência.
+
+Entende-se que o respeito e a ética são importantes para superar esses conflitos, porém não é algo fácil de conseguir, mas podemos criar alternativas para resolver isso e assim vivemos em uma sociedade igualitária.`
+            },
+            {
+                theme: "A valorização de Povos Originários no Brasil e seus direitos como cidadãos",
+                score: "Nota: 400.0",
+                numericScore: 400.0,
+                text: `Quando o assunto se retrata sobre os Povos Originários, muitas pessoas tem pensamento crítico no qual o consideram como "seres que não devem convivir nas cidades", mostrando que esses povos tentam a necessidade de aceitação da sociedade para viver dentro dela. Povos assim precisam ser valorizados por conta de sua história no passado, provando que eles conquistaram direitos para estar incluso na sociedade.
+
+A história desses Povos Originários não se retrata de agora, eles estão desde o começo, na criação do nosso país, trazendo um marco importante para o Brasil. Com o avanço da população, esses povos ficaram cada vez mais isolados, fora da urbanização, o que resultou em raridade e medo na tentativa de se associar com nós. Mas basta entendermos que assim como todos os cidadãos, os Povos Originários também tem seus direitos, isso é provado na Constituição Federal de 1988, no qual se retrata sobre a valorização e reconhecimento deles na sociedade.
+
+O escritor Daniel Munduruku aborda sobre a importância de valorizar o pensamento originário e a ancestralidade para combater preconceitos. Os Povos Originários devem ser aceitos e valorizados na sociedade brasileira, sem haver nenhum tipo de preconceito.
+
+Uma intervenção para isso é necessário uma ação do Governo da parte do Ministério da Educação, no qual implementa nas Escolas assuntos sobre os Povos Originários, através de aulas, trabalhos e projetos para os alunos, mostrando a eles o porquê devem ser valorizados e ter seus direitos. Dessa forma, os Povos Originários terão a liberdade de conviver com nós e entendermos que todos temos direitos e deveres a serem cumpridos.`
+            },
+            {
+                theme: "Enchentes: impactos sociais e econômicos das mudanças no Ciclo Ecológico",
+                score: "Nota: 680.0",
+                numericScore: 680.0,
+                text: `Os eventos de enchentes que ocorreram nesses últimos anos causaram impactos sociais e econômicos, resultando em mudanças no ciclo ecológico. O estado do Rio Grande do Sul foi vítima dessa catástrofe, tendo um imenso impacto negativo ocasionando morte de pessoas, perca de recursos, abalando psicológicos e entre outras coisas. Esse evento afetou negativamente o estado e tudo isso pode ter sido principalmente causado pela população, por não ter um processo de educação sobre reciclagem educativa.
+
+Pesquisas de uma matéria do G1 apontam que um dos principais culpados desses acontecimentos é a má reciclagem da população, descartando seus lixos não nos seus lugares devidos, de forma irresponsável e sem pensar nas consequências, fazendo com que os lixos entupissem bueiros, impedindo que aquela grande quantidade de água desça. Problemas assim podem ser resolvidos de maneira simples, com uma iniciativa dos Governos mostrando a importância da reciclagem para a população, levando principalmente para a Educação.
+
+A região Sudeste principalmente no estado de Minas Gerais, também sofreram com esses eventos catastróficos, ocasionando os mesmos resultados das enchentes do Rio Grande do Sul. Outra matéria do G1 cita novamente que a má reciclagem é um dos principais culpados desses eventos. Reforçando novamente a ideia de que seja indispensável uma atitude dos Governos sobre o assunto, mostrando a população o impacto e a importância de uma reciclagem sustentável.
+
+Contudo, as enchentes afetam diretamente nos pontos sociais e econômicos, ocorrendo mudanças no ciclo ecológico, mas com uma iniciativa dos Governos e levando para a Educação a importância da reciclagem, ocasionando mudanças positivas no ciclo ecológico.`
+            },
+            {
+                theme: "O uso não controlado das Canetas Emagrecedoras é prejudicial à saúde",
+                score: "Nota: 800.0",
+                numericScore: 800.0,
+                text: `Segundo pesquisas da matéria publicada pelo G1, mostram que essas tais Canetas Emagrecedoras causaram impactos negativos à saúde das pessoas que fizeram o uso do medicamento, levando a consultarem especialistas e chegarem no mesmo resultado, dizendo que o uso não controlado das Canetas Emagrecedoras é prejudicial à saúde. Atualmente as pessoas procura métodos para estarem esteticamente dentro dos "padrões" de beleza contemporânea, mas essas escolhas vem principalmente da pressão da sociedade e da falta de autoestima. Essa pressão que a sociedade causa pode facilmente mudar o pensamento da pessoa que está sofrendo, fazendo ela pensar que não se encaixa dentro do grupo social atual por não ter o "padrão" de beleza ideal, afetando psicologicamente o que leva essa pessoa a usar esses tais métodos, sendo um deles o uso das Canetas Emagrecedoras.
+
+A falta de autoestima é um problema mental que é desenvolvido principalmente pela comparação, perceber que a pessoa é diferente e que não está no "padrão" ideal, não se aceitando do jeito que é, resultando também na busca de métodos de mudança.
+
+O filme "Extraordinário" de 2017, conta a história de um menino que nasceu com uma condição rara chamada Síndrome de Treacher Collins, ocasionando na má formação de genética o que resultou na deformidade no qual o menino tinha, ao longo do filme percebemos que ele sofreu uma pressão de alunos da sua escola e também desenvolveu a falta de autoestima, fazendo com que ele pensasse como seria se ele não tivesse aquilo, no fim ele percebeu que era melhor ele apenas se aceitar do jeito que era do que ir atrás de métodos arriscados que poderiam afetar drasticamente a sua saúde.
+
+Com tudo, o uso das Canetas Emagrecedoras é ruim para a saúde e não vale a pena usá-lo para apenas para tentar se encaixar no "padrão", a melhor forma é encontrar outros métodos seguros indicados por profissionais e priorizar o equilíbrio mental para não se abalar com a pressão da sociedade.`
+            },
+            {
+                theme: "Migrantes e Desafios de Inclusão Social no Brasil",
+                score: "Nota: 600.0",
+                numericScore: 600.0,
+                text: `De acordo com o jornal G1 uma matéria publicada no ano de 2025, pesquisas apontam que casos de Migrantes aumentaram em 42% desde o ano de 2021 no Brasil, porém muitos relatam que não se sentem acolhidos dentro da sociedade, passando por constantes desafios. Com isso, notamos que esses indivíduos tendem a continuar sofrendo com o passar dos anos, isso se dá por conta da falta de inclusão social entre a população e a escassez dos direitos como cidadãos.
+
+A população necessita de uma convivência agradável para continuarmos evoluindo, porém infelizmente muitos Imigrantes não se sentem confortável no ambiente civil e isso se dá pela ausência da inclusão social, através de preconceitos e impressões negativas sobre eles, o que se torna impossível a possibilidade de um convívio harmônico para todos.
+
+Conforme a "Declaração Universal dos Direitos Humanos", no qual é dividido em 30 artigos e serve para garantir a dignidade, liberdade e justiça a todas as pessoas, destaca sobre a importância desses princípios para um cidadão, mostrando que todos tem seus privilégios como pessoa. Os migrantes sofrem com a falta dessas garantias, mostrando que esses indivíduos não conseguem ter uma rotina agradável com outras pessoas.
+
+Com tudo, a sociedade brasileira necessita ser mais empática, fazendo com que esses migrantes se sintam confortáveis, com providências do Governo da parte do Ministério dos Direitos Humanos e da Cidadania, aprimorando Leis e reforçando a importância delas, não só isso, mas também garantir qualidade de vida para todos e assim combater essa desigualdade social.`
+            },
+            {
+                theme: "O lado negativo das IA e as Deepfakes",
+                score: "Nota: 800.0",
+                numericScore: 800.0,
+                text: `Segundo pesquisas da matéria publicada pelo G1, mostram que atualmente o uso da IA vem crescendo bastante dentro da nossa sociedade, porém ela está sendo usada de maneira negativa, causando más impressões sobre ela, sendo utilizada para criar vídeos, notícias, imagens e informações falsas, não só isso como também aplicando a IA para passar golpes nas pessoas. A plataforma TikTok é o maior alvo de postagens falsas, um exemplo foi um vídeo publicado em setembro no ano de 2025, no qual mostrava um canguru dentro de um aeroporto, mas na verdade todo aquele cenário era falso. Outra plataforma que é afetada pelos famosos "golpes" é o Whatsapp, um exemplo dado foi na reportagem do Jornal Nacional no quadro Fato ou Fake publicada no ano de 2024, no qual mostravam os golpes sendo aplicados através de áudios falsos, gerados por IA, para enganar a vítima. Para a plataforma TikTok, é necessário uma supervisão melhor e cuidados nas postagens, como aquele exemplo dado, tomem restrições ou permissão de publicar, mas sem afetar os espectadores.
+
+A plataforma Whatsapp está no ar a mais de uma década, mas sempre foi afetada por golpistas e agora com o uso da IA facilitou ainda mais com a criação de situações, falas e áudios falsos. Problemas como esses, devem receber suporte e avisos da plataforma para que os usuários tomem cuidados e não correrem a este risco.
+
+O filme "Her" lançado no ano de 2013, relata a história de um homem solitário que desenvolveu uma relação amorosa com uma máquina, ou como chamamos a IA, nesse contexto, notamos que o avanço dela foi tão grande que ela consegue cumprir o que pedimos sem muita dificuldade. O filme mostra como é a capacidade da IA, mas existem pessoas que infelizmente usam ela de maneira negativa e afetando a nossa sociedade.
+
+O uso da IA é necessário no nosso dia-a-dia, mas em mãos erradas podem impactar negativamente muitas pessoas, porém basta cuidado, melhoria no suporte, denúncias de ocorrências fora do comum e restrições para que assim ela fique adaptada para a nossa sociedade contemporânea.`
+            },
+            {
+                theme: "Avanço na Agropecuária com o auxílio da Tecnologia Moderna",
+                score: "Nota: 800.0",
+                numericScore: 800.0,
+                text: `Nos últimos anos, o setor da agropecuária no Brasil, se tornou muito eficiente com o passar dos anos, um serviço que feito com dificuldades, acabou sendo facilitado utilizando as tecnologias modernas, mas com o uso inadequado dessas ferramentas podem na produção, transformando em uma situação não sustentável. Na matéria do jornal G1 publicada no ano de 2024, relatam sobre a importância de projetos sustentáveis para a área da agropecuária e mostrando que simples mudanças, causam grandes impactos positivos.
+
+O uso exagerado das máquinas nas terras, podem acabar afetando negativa o solo, causando mudanças na formação das plantações, além de máquinas grandes causarem muitas fumaças por conta do seu excessivo, intencionando ainda mais o efeito estufa no nosso planeta. A solução para esse problema é uma moderação eficaz do uso dessas máquinas, diminuindo os efeitos negativos que elas podem causar.
+
+Outro fator importante é a falta de implementação de projetos sustentáveis dentro da área, a agropecuária que trabalha com um dos principais fatores que movem a economia do país. Ao aplicarmos esses projetos, poderemos ver que eles trazem resultados mais sustentáveis e benéficos para a sociedade.
+
+A tecnologia moderna dentro da agropecuária é fundamental para o funcionamento dela, mas deve ser aplicada com moderação, fazendo com que não criem problemas futuramente, também é importante não descartar projetos sustentáveis, mas sim implementá-los mais vezes dentro da área, para termos resultados positivos e não prejudiciais para a sociedade.`
+            },
+            {
+                theme: "Inclusão digital, aprendendo a usar a IA e facilitando rotinas",
+                score: "Nota: 520.0",
+                numericScore: 520.0,
+                text: `Na sociedade atual, o uso das tecnologias, tais como redes sociais e IA vem facilitando cotidiano, quebrando as dificuldades que pessoas tinham, porém infelizmente muitas pessoas não tem acesso a esses benefícios, motivos como a falta de inclusão social, a pessoa não saber mexer, pesquisas da manchete do Jornal Nacional publicada no ano de 2025, mostra que quatorze por cento da população brasileira não sabem como acessar as mídias digitais. Por outro lado, vemos também pessoas que não tem o acesso por falta de recursos, onde a tecnologia infelizmente é precária.
+
+As pessoas com mais de cinquenta anos, são as que mais sofrem quando o assunto é saber usar as mídias digitais, pois estão em uma época que é totalmente diferente doque eles estão acostumado, isso acaba resultando na exclusão das mídias sociais. Existem métodos que podem ajudar eles a se encaixarem dentro disso, basta o auxílio e o ensino sobre como utilizar essas ferramentas, podendo até ajudá-los no seu cotidiano, que na maioria dos casos são essas pessoas que mais necessitam.
+
+No Brasil, infelizmente existem pessoas que não conseguem utilizar essas ferramentas, como principal motiva a falta de infraestrutura para o acesso a elas, bairros precários e até mesmos em áreas rurais que estão distante de qualquer tipo de métodos para o uso da tecnologia. O estado tem o principal dever de identificar locais que não tem condições para a tecnologia e de alguma forma trazer métodos para resolver esse problema, também podem trazer projetos sociais para levarem essa tecnologia para todos os lugares e mostrarem a importância dela no nosso cotidiano.
+
+A tecnologia atual é indispensável para o nosso dia-a-dia, podendo nos ajudar desde tarefas simples em até das mais complexas, por isso é importante que todos tenham acesso a ela, para que todos possam ter o direito de ter uma assistência fundamental no nosso cotidiano.`
+            },
+            {
+                theme: "Jovens apostam prioridades em Bets",
+                score: "Nota: 520.0",
+                numericScore: 520.0,
+                text: `Jovens estão apostando o seu dinheiro que é utilizado para pagamento de contas em sites de apostas ou nas famosas "bets", deixando eles em dívidas que acabam sendo altas. De acordo com o jornal G1, em uma matéria publicada no ano de 2026, no qual mostra que os jovens estão acessando cada vez mais sites de apostas, o que acaba resultando em um vício descontrolado, usando CPF de maiores de idade para ter mais acessos no cotidiano, burlando o sistema e aumentando a irresponsabilidade desses jovens.
+
+No Brasil, quarenta por cento dos jovens já estão ingressados no mercado de trabalho, na maioria das vezes para ganhar o salário e pagar as contas da faculdade, cursos ou até mesmo contas pessoais, o problema é que com o mal controle financeiro eles acabam apostando esse dinheiro em bets, o que resulta em dívidas. Os colégios tem o dever de ensinar sobre esse assunto para os alunos, mostrando a eles a importância de uma boa gestão financeira e como esses sites de apostas podem endividar você rapidamente sem perceber.
+
+O vício é um problema grave que é difícil de ser controlado, podendo afetar o indivíduo negativamente, com as bets não é diferente, chegando ao ponto de vincularem contas de outras pessoas ou até mesmo dos responsáveis e familiares para burlarem os sites e apostarem mais. Essas bets tem que ter um suporte melhor, para impedir o acesso limitado do indivíduo, colocando até mesmo a identificação do rosto, para ver se a pessoa está fazendo acessos múltiplos no dia e impedir esses acessos.
+
+As bets podem ser acessadas como forma de ganhar dinheiro, mas de maneira de que os jovens entendam os riscos que elas podem trazer e priorizar as suas necessidades.`
+            },
+            {
+                theme: "Combate contra as intolerâncias religiosas no Brasil",
+                score: "Nota: 520.0",
+                numericScore: 520.0,
+                text: `No Brasil, vivemos em uma sociedade no qual todos tem a sua religião, seja ela católica, evangélica, candomblé e entre outras, mas infelizmente no cenário brasileiro existem intolerâncias contra essas religiões, forçando até mesmo a pessoa parar de frequentar no que ela acredita e desmentindo, para tentar convencer ela de mudar a sua escolha. No outro lado, também notamos que as pessoas de diferentes religiões sofrem insultos, principalmente nas redes sociais. De acordo com uma matéria do jornal G1 publicada no ano de 2024, diz que 30% da sociedade muda a sua religião por conta de opressão da sociedade, para ser aceita e não sofrer isso novamente.
+
+A sociedade brasileira que sofra com essas intolerâncias e forçadas a mudarem de religião, acabam fazendo essa escolha não por opção e sim para não ter que lidar com essas coisas no cotidiano. As pessoas não podem deixar de acreditar nos seus direitos e entenderem que eles podem acreditar, escolher e ter esperança pela religião que deseja, sem precisar ser forçada a nada.
+
+Nas redes sociais não é diferente, um exemplo que cito é o Bruxo Malagueta, no qual a sua religião é a quimbanda, ele posta seus vídeos contando histórias e mostrando um pouco do seu cotidiano, porém em todas os vídeos, os comentários sempre há pessoas para ofendê-lo e dizer que tudo aquilo é maluquice da parte dele, o problema maior é que outros criadores de conteúdos também sofrem com esses ataques contra sua religião. As plataformas digitais tem a o obrigação de proibir esses tipos de comentários, podendo até mesmo dar punições para o indivíduo que comenta esses tipos de ofensas, também os criadores podem postar vídeos falando o quão importante é a pessoa respeitar a religião da outra.
+
+Na sociedade brasileira, vivemos em um cenário no qual durante o cotidiano sofremos com intolerâncias, mas devemos ressaltar que todos tem direitos de escolhas e religião não é diferente, mostrando que as escolhas próprias são mais valiosas doque frequentar só para se encaixar em algo que é forçado.`
+            },
+            {
+                theme: "Anabolizantes e o uso inadequado para o fitness",
+                score: "Nota: 480.0",
+                numericScore: 480.0,
+                text: `O uso de anabolizantes vem se tornado muito comum no mundo fitness, sendo utilizado principalmente por pessoas que estão começando ou aqueles que já praticam academia, sendo eles adultos e até mesmo adolescentes. O grande problema com o uso inadequado podem trazer consequências ao ser humano, os principais sintomas são graves danos ao coração, ao fígado e ao rim. De acordo com o jornal G1, uma matéria publicada no ano de 2025, a venda desses anabolizantes veio aumentando com os tempos pra cá, o problema é na reportagem dizem que esses produtos são fabricados em falsificação, o que aumenta o risco a saúde e tudo isso para um corpo "perfeito".
+
+Muitas pessoas que entram no ramo do fitness, decide fazer o uso de produtos, tudo para alcançar um corpo maior ou desejado, mas com a utilização não adequada podem trazer consequências na saúde do ser humano. O ex-influenciador digital conhecido como Gabriel Ganley, faleceu nesse ano, ele produzia conteúdo nas redes sociais sobre academia, exercícios e motivações para outras pessoas praticarem academia, o grande problema é que ele fazia aplicações de anabolizantes em seu corpo, o que fez vir a falência nesse ano. O uso desses produtos podem resultar no desenvolvimento do corpo, criando força, resistência e uma melhor estética, mas com o uso inadequado podem resultar em problemas de saúde.
+
+Com o aumento da busca desses produtos, muitas pessoas decidiram ir atrás de fontes baratas por ser mais acessível a todos, porém com a fabricação barata aplicada no seu corpo, há grandes probabilidades de afetar mais ainda a saúde. É de bastante importância não fazer o uso desses remédios e se prevenir para não ocorrer o risco de comprar falsificado.
+
+Os anabolizantes podem afetar a saúde das pessoas, mas isso sendo utilizado e comprado da maneira errada. É importante que a pessoa que entrou no ramo fitness e deseja realizar a aplicação, procure um profissional de confiança para ajudar e mostrar quais produtos você deve comprar e quais você tem que usar para atingir a sua meta.`
+            },
+            {
+                theme: "Como as Redes Sociais manipula a sociedade através de Fake News",
+                score: "Nota: 480.0",
+                numericScore: 480.0,
+                text: `As redes sociais estão cada vez mais presente do nosso cotidiano, sendo utilizadas pelas pessoas como meio de comunicação e informação, tendo divulgação de notícias todos os dias, porém através disso que ocorrem as Fake News, notícias falsas que geram intrigas e discussões sobre. Com isso, o algoritmo sem prestar atenção, compartilha informações que não são reais, mas que resulta na manipulação e mostrando que as pessoas não entendem em diferenciar esses detalhes.
+
+A mídia gera inúmeros comentários e pensamentos com esses dados, mudando seu pensamento e até mesmo tendo novas opiniões sobre, deixando de lado o aprofundamento para ver se a notícia é real ou não. Em uma postagem da TNT Sports Brasil, publicada no dia 17 de Agosto de 2025, diz que após um jogo do Santos contra o Fluminense, divulga a informação de que Neymar após derrota, sai do campo tampando os ouvidos na tentativa de provocação, após a postagem a mídia começa a criticar ele, tempos depois o Neymar veio a público dizer que no redação ele estava apenas coçando os ouvidos.
+
+Percebesse que com a Fake News, as pessoas acreditam naquilo que vê nas redes sociais e não buscam a verdade sobre, o que resulta na fácil manipulação. Além de ser prejudicial para a sociedade, também afeta principalmente o envolvido desses tipos de notícias.
+
+Dessa forma, é essencial que o Social Media, gestores de redes sociais, comecem a impedir essas postagens com informações falsas que possam mudar o pensamento crítico de uma pessoa, resultando em uma confiança maior dos usuários sobre o uso das plataformas, afim de ter uma sociedade sem ser manipulada por Fake News.`
+            },
+            {
+                theme: "Os desafios para a preservação dos monumentos históricos no Brasil contemporâneo",
+                score: "Nota: 640.0",
+                numericScore: 640.0,
+                text: `A preservação dos patrimônios culturais e históricos no Brasil é importante para manter viva a memória de nossa sociedade, no entanto, no nosso país, esses patrimônios são abandonados pela falta de manutenção e pela desvalorização que a sociedade tem por eles. Por isso, é necessário buscar novas formas de melhorar esses patrimônios, para entendermos de onde e o porquê de tanta coisa ser agora do jeito que é por conta do passado.
+
+Em primeiro lugar, a falta de investimento para esses lugares resultam em uma situação precária, muitos prédios, museus e estátuas precisam de manutenção diariamente e cuidados, pois por serem lugares valorizados por muitos, acabam passando por vandalismos. Lugares assim, necessitam de atenção para que não ocorra esses acontecimentos.
+
+A desvalorização é um critério importante, pois isso não apenas afeta uma geração futura, mas como também a passada, já que nesse contexto suas lutas foram esquecidas. Quando as pessoas não conhecem a história relacionada a determinado local ou manifestação cultural, é mais difícil em manter eles preservados. Nesse sentido, a educação pode contribuir para aproximar os jovens e as crianças da história do país, mostrando que esses patrimônios fazem parte da identidade de nossa sociedade. De acordo com as perspectivas de Eric Hobsbawm, as tradições ajudam na construção de uma sociedade, assim, preservando manifestações culturais brasileiras ajudam a manter e proteger elementos do passado que contribuíram para a história.
+
+Por tanto, os patrimônios culturais devem ser valorizados pelos brasileiros para compreendermos a nossa trajetória e para isso, uma ação da Prefeitura Municipal de cada lugar fazer manutenções e terem cuidados desses lugares, para que continue mostrando uma parte de nossa história. Além disso, o Ministério da Educação deve passar para as Escolas a importância de não esquecermos da nossa identidade cultural, mostrando a eles nossas origens de cada parte de nossa trajetória.`
+            },
+            {
+                theme: "As consequências de aprofundar no Espaço Sideral",
+                score: "Nota: 600.0",
+                numericScore: 600.0,
+                text: `Segundo a curta-metragem "The man and Moon his" notamos que o personagem principal busca pela descoberta imediata e aprofundada da Lua, depois de anos consegue viajar até lá e com isso, começa a exploração agressiva, resultando em mudanças climáticas e assim acabando o curta, mostrando que a exploração excessiva pode resultar em alterações em nosso planeta por conta da emissão de poluentes dos foguetes, não só isso, mas também consequências negativas para os especialistas da área por conta do material de trabalho inadequado.
+
+As mudanças climáticas vêm se tornando cada vez mais comentada pela sociedade, principalmente por conta do El Nino, de acordo com pesquisas da G1, publicada em 2025, a matéria nomeada de "Foguetes também alimentam a atmosfera", mostra que quando lançados, liberam fuligem, o que resulta em um aquecimento artificial da estratosfera. Por conta das explorações excessivas, muitos desses veículos são usados como meio de locomoção, gerando ainda mais esse aquecimento.
+
+Na série "Rick and Morty", acompanhamos várias aventuras da família no espaço, mas durante esses passeios, acabam indo sem o necessário para a exploração, tal como a roupa e materiais adequados, o que resulta em mudanças na saúde de maneira negativa para eles, Isso nos mostra que com a falta de equipamentos necessários para o serviço, resulta em consequências, podendo afetar o bem-estar físico do profissional voltado para a área. A exploração excessiva agrega no aquecimento da estratosfera e podem resultar em mudanças nos especialistas do ramo, neste sentido, é essencial que o Governo, parte do Ministério do Meio Ambiente, possa controlar essas explorações, através de leis que possam limitar o uso de foguetes, para a diminuição do aquecimento na estratosfera. Não apenas, mas também é fundamental a iniciativa dessas empresas prestarem atenção aos seus trabalhadores, observando se estão adequados para o serviço, através de reuniões sobre segurança adequada, evitando qualquer risco para a saúde. Assim, podemos evitar consequências graves para a nossa sociedade.`
+            },
+            {
+                theme: "Migração e acolhimento: desafios da convivência em contextos globais",
+                score: "Nota: 600.0",
+                numericScore: 600.0,
+                text: `De acordo com o jornal G1 uma matéria publicada no ano de 2025, pesquisas apontam que casos de Migrantes aumentaram em 42% desde o ano de 2021 no Brasil, porém muitos relatam que não se sentem acolhidos dentro da sociedade, passando por constantes desafios. Com isso, notamos que esses indivíduos tendem a continuar sofrendo com o passar dos anos, isso se dá por conta da falta de inclusão social entre a população e a escassez dos direitos como cidadãos.
+
+A população necessita de uma convivência agradável para continuarmos evoluindo, porém infelizmente muitos imigrantes não se sentem confortável no ambiente civil e isso se dá pela ausência da inclusão social, através de preconceitos e impressões negativas sobre eles, o que se torna impossível a possibilidade de um convívio harmônico para todos.
+
+Conforme a "Declaração Universal dos Direitos Humanos", no qual é dividido em 30 artigos e serve para garantir a dignidade, liberdade e justiça a todas as pessoas, destaca sobre a importância desses princípios para um cidadão, mostrando que todos tem seus privilégios como pessoa. Os migrantes sofrem com a falta dessas garantias, mostrando que esses indivíduos não conseguem ter uma rotina agradável com outras pessoas.
+
+Com tudo, a sociedade brasileira necessita ser mais empática, fazendo com que esses migrantes se sintam confortáveis, com providências do Governo da parte do Ministério dos Direitos Humanos e da Cidadania, aprimorando Leis e reforçando a importância delas, não só isso, mas também garantir qualidade de vida para todos e assim combater essa desigualdade social.`
+            },
+            {
+                theme: "O El Niño e mudanças climáticas: desafios para a preparação da sociedade diante de eventos extremos",
+                score: "Nota: 560.0",
+                numericScore: 560.0,
+                text: `As mudanças climáticas estão sendo retratada como preocupação atualmente, de acordo com o jornal OGL, Notícias no qual publicou uma matéria sobre o tema, pesquisas apontam que essas alterações estão cada vez mais presentes e um nome destaque é o "El Nino", com o objetivo principal informar que ela pode gerar impactos negativos, tais como a modificação de ambientes. Com isso, essas mudanças resultam na alteração do território e migração imediata da população em busca de um local adequado.
+
+Em primeira análise, as mudanças climática vão se aprimorar de maneira negativa com o passar dos anos e neste caso, ela afeta diretamente territórios de proprietários. De acordo com a reportagem do Jornal Nacional, transmitida no ano de 2025, mostra entrevistas com fazendeiros contando sobre a suas preocupações com essas mudanças, já que seu comércio tem dependência de suas plantações e com essas alterações, resulta na impossibilidade de desenvolvimento de seus produtos.
+
+Além disso, das mudanças climáticas é um dos principais motivos de migração, pelo fato das pessoas quererem buscar um local adequado que não sofra com essas causas, na obra "O Quinze" de Rachel Queiroz, conta a história de Chico e sua família, no qual a sua região era alvo de uma seca extrema, assim ocasionando na migração imediata de todos em busca de um lugar melhor. Fora da ficção, esse é um problema real que está afetando negativamente a população, já que na maioria dos casos, muitos não tem recursos ideais para essa locomoção.
+
+Com tudo, as mudanças climáticas estão cada vez mais presentes no nosso cotidiano, mas não podemos deixar que ela possa nos afetar, dessa forma é necessário uma ação do Governo da parte do Ministério do Meio Ambiente e Mudança do Clima elaborar novas alternativas para diminuir esses eventos, além disso, é importante o Governo da parte de Assistência Social ajudar pessoas que necessitam de uma migração por conta desses ocorridos. Assim, resultando em melhoria nas situações climáticas e ajudando ao próximo com o necessário para ter uma convivência adequada sem precisar passar por necessidades.`
+            },
+            {
+                theme: "Desafios para superar a sustentabilidade com problemas de descartes eletrônicos",
+                score: "Nota: 840.0",
+                numericScore: 840.0,
+                text: `De acordo com a Política Nacional de Resíduos Sólidos, criada no ano de 2010, o descarte adequado dos resíduos é essencial para a preservação do meio ambiente. Com isso, a falta de conscientização sobre o lixo eletrônico e o consumo excessivo de aparelhos tecnológicos contribuem para o agravamento desse problema. Essa situação tende a aumentar com o passar dos anos, sendo consequência da obsolescência tecnológica e da falta de investimentos em práticas sustentáveis.
+
+Esses aparelhos eletrônicos necessitam de um descarte adequado para evitar danos ao meio ambiente, mas infelizmente muitos acabam sendo jogados em lugares inadequados, podendo contaminar o solo e a água. Além disso, a troca constante de celulares, computadores e outros equipamentos aumenta a quantidade de resíduos eletrônicos, prejudicando a sustentabilidade e a qualidade de vida da população.
+
+O filme "Wall-E" conta a história de um futuro em que a Terra se encontra coberta por grandes quantidades de lixo, devido ao consumo excessivo e ao descarte inadequado de produtos. Assim como na animação, a realidade brasileira apresenta problemas relacionados à produção exagerada de resíduos, principalmente eletrônicos, que necessitam de atenção adequada e constante para que não prejudiquem o meio ambiente.
+
+O descarte correto dos resíduos eletrônicos é essencial para a nossa sociedade e de certa forma, precisa de cuidados maiores por parte do Governo Federal, por meio do Ministério do Meio Ambiente, juntos as empresas responsáveis pela fabricação desses aparelhos. Desta maneira, é necessário ampliar os pontos de coleta e incentivar a reciclagem, além de conscientizar a população sobre o descarte correto, para que esses materiais não contribuem prejudicando o meio ambiente e a sustentabilidade no Brasil.`
+            }
+        ];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const essayGrid = document.getElementById("essayGrid");
+            const essaySearch = document.getElementById("essaySearch");
+            const sortButtons = document.querySelectorAll(".sort-btn");
+
+            const modal = document.getElementById("essayModal");
+            const modalNumber = document.getElementById("modalNumber");
+            const modalScore = document.getElementById("modalScore");
+            const modalTitle = document.getElementById("modalTitle");
+            const modalText = document.getElementById("modalText");
+            const modalClose = document.getElementById("modalClose");
+
+            let currentSort = "default";
+
+            if (!essayGrid) return;
+
+            function openModal(essay, index) {
+                if (modalNumber) modalNumber.textContent = `REDAÇÃO ${String(index + 1).padStart(2, "0")}`;
+                if (modalScore) modalScore.textContent = essay.score;
+                modalTitle.textContent = essay.theme;
+                modalText.textContent = essay.text;
+                modal.classList.add("active");
+                modal.setAttribute("aria-hidden", "false");
+            }
+
+            function closeModal() {
+                modal.classList.remove("active");
+                modal.setAttribute("aria-hidden", "true");
+            }
+
+            function renderEssays(search = "", sortType = "default") {
+                essayGrid.innerHTML = "";
+                const termo = search.trim().toLowerCase();
+                
+                // Filtra pelo termo de busca
+                let filtered = essays.filter(essay => essay.theme.toLowerCase().includes(termo));
+
+                // Faz uma cópia para não alterar a ordem original do array global
+                let result = [...filtered];
+
+                // Aplica a ordenação escolhida
+                if (sortType === "alpha") {
+                    result.sort((a, b) => a.theme.localeCompare(b.theme));
+                } else if (sortType === "score-asc") {
+                    result.sort((a, b) => a.numericScore - b.numericScore);
+                } else if (sortType === "score-desc") {
+                    result.sort((a, b) => b.numericScore - a.numericScore);
+                }
+                // Se for "default", mantém a ordem original do vetor
+
+                if (result.length === 0) {
+                    essayGrid.innerHTML = '<p class="empty-message">Nenhuma redação encontrada.</p>';
+                    return;
+                }
+
+                result.forEach(essay => {
+                    const originalIndex = essays.indexOf(essay);
+                    const card = document.createElement("article");
+                    card.className = "essay-card";
+                    card.tabIndex = 0;
+                    card.setAttribute("role", "button");
+
+                    const number = document.createElement("span");
+                    number.className = "essay-number";
+                    number.textContent = `REDAÇÃO ${String(originalIndex + 1).padStart(2, "0")}`;
+
+                    const score = document.createElement("div");
+                    score.className = "essay-score";
+                    score.textContent = essay.score;
+
+                    const theme = document.createElement("h3");
+                    theme.textContent = essay.theme;
+
+                    const instruction = document.createElement("p");
+                    instruction.className = "essay-instruction";
+                    instruction.textContent = "Clique para ler a redação →";
+
+                    card.append(number, score, theme, instruction);
+                    card.addEventListener("click", () => openModal(essay, originalIndex));
+                    card.addEventListener("keydown", event => {
+                        if (event.key === "Enter" || event.key === " ") {
+                            event.preventDefault();
+                            openModal(essay, originalIndex);
+                        }
+                    });
+
+                    essayGrid.appendChild(card);
+                });
+            }
+
+            // Evento para a barra de pesquisa
+            if (essaySearch) {
+                essaySearch.addEventListener("input", event => {
+                    renderEssays(event.target.value, currentSort);
+                });
+            }
+
+            // Eventos para os botões de ordenação
+            sortButtons.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    sortButtons.forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    currentSort = btn.getAttribute("data-sort");
+                    const searchTerm = essaySearch ? essaySearch.value : "";
+                    renderEssays(searchTerm, currentSort);
+                });
+            });
+
+            if (modalClose) modalClose.addEventListener("click", closeModal);
+            if (modal) {
+                modal.addEventListener("click", event => {
+                    if (event.target === modal) closeModal();
+                });
+            }
+            document.addEventListener("keydown", event => {
+                if (event.key === "Escape") closeModal();
+            });
+
+            // Renderiza inicialmente
+            renderEssays("", "default");
+        });
+    </script>
+</body>
+</html>
